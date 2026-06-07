@@ -1,107 +1,11 @@
-# Threat Hunting: PowerShell Empire Attack Analysis
+## Investigation Screenshots
 
-## Project Overview
-
-This project documents a threat hunting investigation conducted against Windows telemetry collected in Splunk.
-
-The objective was to reconstruct attacker activity from raw logs, identify malicious behaviors, correlate security events, and map findings to the MITRE ATT&CK framework.
-
-The investigation focuses on a PowerShell Empire intrusion involving:
-
-- PowerShell execution
-- Invoke-PsExec activity
-- AMSI bypass attempts
-- Malicious service installation
-- Registry persistence
-- Network communication
-- Incident response recommendations
-
----
-
-## Skills Demonstrated
-
-- Threat Hunting
-- Splunk SPL
-- Log Analysis
-- Windows Event Analysis
-- Sysmon Investigation
-- Timeline Reconstruction
-- Incident Response
-- MITRE ATT&CK Mapping
-- Detection Engineering
-
----
-
-## Tools Used
-
-- Splunk
-- Sysmon
-- Windows Event Logs
-- MITRE ATT&CK
-- CyberDefenders Dataset
-
----
-
-## Investigation Workflow
-
-1. Data Ingestion Validation
-2. Event Frequency Analysis
-3. Timeline Reconstruction
-4. Process Lineage Investigation
-5. PowerShell Empire Detection
-6. AMSI Bypass Detection
-7. Persistence Analysis
-8. Registry Investigation
-9. Network Activity Correlation
-10. Incident Response Recommendations
-
----
-
-## Key Findings
-
-### Initial Access / Execution
-
-- Encoded PowerShell execution observed.
-- Invoke-PsExec activity detected.
-
-### Defense Evasion
-
-- AMSI bypass identified.
-- PowerShell logging bypass attempts observed.
-
-### Persistence
-
-- Malicious "Updater" service installed.
-- Registry modifications created persistence mechanisms.
-
-### Command and Control
-
-- Suspicious PowerShell-generated network connections identified.
-
----
-
-## MITRE ATT&CK Techniques
-
-| Technique | Description |
-|------------|------------|
-| T1059.001 | PowerShell |
-| T1021 | Remote Services |
-| T1562.001 | Impair Defenses |
-| T1543.003 | Windows Service |
-| T1547 | Registry Persistence |
-| T1071 | Application Layer Protocol |
-
----
-
-## Screenshots
-
-### Investigation Walkthrough
-
-## Screenshots
-
-### 1. Data Ingestion Validation
+### 1. Splunk Data Ingestion Validation
 
 ![Data Ingestion](screenshots/01-Splunk-ThreatHunt-Data-Ingestion.png)
+
+**Finding:**
+Verified successful ingestion of Windows telemetry into Splunk. Data sources were validated to ensure all relevant security events were available for threat hunting and timeline reconstruction.
 
 ---
 
@@ -109,29 +13,44 @@ The investigation focuses on a PowerShell Empire intrusion involving:
 
 ![Event Frequency](screenshots/02-Event-Frequency-Analysis-Workstation6.png)
 
----
-
-### 3. Attack Timeline Reconstruction
-
-![Timeline](screenshots/03-Empire-Attack-Timeline-Reconstruction.png)
+**Finding:**
+Analyzed event frequency on the compromised workstation to identify abnormal activity patterns. High concentrations of process creation, PowerShell execution, and system modification events indicated suspicious behavior requiring deeper investigation.
 
 ---
 
-### 4. Process Lineage Analysis
+### 3. Empire Attack Timeline Reconstruction
+
+![Timeline Reconstruction](screenshots/03-Empire-Attack-Timeline-Reconstruction.png)
+
+**Finding:**
+Reconstructed the attacker timeline using correlated Windows events. This established the sequence of execution, persistence creation, network communication, and subsequent attacker actions across the host.
+
+---
+
+### 4. PowerShell Process Lineage Analysis
 
 ![Process Lineage](screenshots/04-Process-Lineage-PowerShell-Execution.png)
+
+**Finding:**
+Investigated parent-child process relationships to trace PowerShell execution back to its originating process. This revealed attacker-controlled PowerShell activity and provided context for subsequent malicious actions.
 
 ---
 
 ### 5. Invoke-PsExec Detection
 
-![Invoke-PsExec](screenshots/05-PowerShell-Empire-Invoke-PsExec-Detection.png)
+![Invoke-PsExec Detection](screenshots/05-PowerShell-Empire-Invoke-PsExec-Detection.png)
+
+**Finding:**
+Detected evidence of PowerShell Empire's Invoke-PsExec functionality. The activity indicated lateral movement capabilities and demonstrated the attacker's attempt to execute commands remotely across systems.
 
 ---
 
 ### 6. PowerShell Script Block Logging Analysis
 
-![Script Block Logging](screenshots/06-PowerShell-ScriptBlock-Logging-Analysis.png)
+![Script Block Analysis](screenshots/06-PowerShell-ScriptBlock-Logging-Analysis.png)
+
+**Finding:**
+Reviewed PowerShell Script Block Logging events to identify executed commands and attacker tooling. Script contents provided visibility into malicious execution techniques and post-exploitation activity.
 
 ---
 
@@ -139,64 +58,64 @@ The investigation focuses on a PowerShell Empire intrusion involving:
 
 ![AMSI Bypass](screenshots/07-AMSI-Bypass-ScriptBlock-Detection.png)
 
+**Finding:**
+Identified PowerShell commands associated with attempts to bypass the Anti-Malware Scan Interface (AMSI). This behavior demonstrated deliberate efforts to evade endpoint security controls and conceal malicious scripts.
+
 ---
 
 ### 8. Malicious Service Installation
 
 ![Service Installation](screenshots/08-Malicious-Service-Installation-Updater.png)
 
+**Finding:**
+Detected creation of a suspicious Windows service used to maintain attacker access. Service installation events indicated persistence mechanisms commonly leveraged by post-exploitation frameworks.
+
 ---
 
-### 9. Registry Persistence
+### 9. Registry Persistence Analysis
 
 ![Registry Persistence](screenshots/09-Registry-Persistence-Updater-Service.png)
+
+**Finding:**
+Investigated registry modifications linked to persistence. Analysis revealed configuration changes consistent with maintaining execution after system reboot and ensuring continued attacker access.
 
 ---
 
 ### 10. Persistence Correlation
 
-![Correlation](screenshots/10-Persistence-And-PowerShell-Correlation.png)
+![Persistence Correlation](screenshots/10-Persistence-And-PowerShell-Correlation.png)
+
+**Finding:**
+Correlated Sysmon Event IDs 1, 3, 12, 7045, and 4104 to link PowerShell execution, service installation, registry persistence, and network activity into a single attack timeline.
 
 ---
 
-### 11. Suspicious PowerShell Network Activity
+### 11. Suspicious PowerShell Network Connections
 
-![Network Activity](screenshots/11-Suspicious-PowerShell-Network-Connection.png)
+![Network Connections](screenshots/11-Suspicious-PowerShell-Network-Connection.png)
 
-## Repository Structure
-
-```text
-screenshots/
-queries/
-mitre/
-reports/
-README.md
-```
+**Finding:**
+Correlated PowerShell execution events with outbound network connections. The activity suggested command-and-control communication between the compromised host and attacker infrastructure.
 
 ---
 
-## Investigation Report
+## Incident Response Recommendations
 
-Detailed report available here:
+Based on the investigation findings, the following actions are recommended:
 
-```text
-reports/investigation_report.md
-```
-
----
-
-## MITRE ATT&CK Mapping
-
-Detailed ATT&CK mapping available here:
-
-```text
-mitre/mitre_mapping.md
-```
+1. Isolate affected hosts from the network to prevent further attacker activity.
+2. Terminate malicious PowerShell sessions and associated processes.
+3. Remove unauthorized services and registry persistence mechanisms.
+4. Block identified command-and-control IP addresses and domains.
+5. Reset credentials associated with compromised accounts.
+6. Conduct enterprise-wide hunting for similar PowerShell Empire indicators.
+7. Enable PowerShell Script Block Logging and AMSI protections across all systems.
+8. Deploy detections for AMSI bypass attempts, malicious service creation, and suspicious PowerShell execution.
+9. Review lateral movement activity and investigate potentially impacted hosts.
+10. Update security monitoring rules based on discovered attacker techniques.
 
 ---
 
-## Author
+## Conclusion
 
-Daniel Nwachukwu
-
-Threat Hunting • SOC Analysis • Incident Response • Detection Engineering
+This investigation successfully reconstructed a PowerShell Empire intrusion using Windows telemetry collected in Splunk. Through timeline analysis, process lineage investigation, PowerShell logging review, persistence detection, registry analysis, and network correlation, attacker behavior was identified and mapped to the MITRE ATT&CK framework. The findings demonstrate practical threat hunting methodology, event correlation techniques, and incident response decision-making using real-world telemetry.
