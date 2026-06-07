@@ -97,21 +97,71 @@ The investigation focuses on a PowerShell Empire intrusion involving:
 
 ### Investigation Walkthrough
 
-| Screenshot |
-|------------|
-| 01-Splunk-ThreatHunt-Data-Ingestion |
-| 02-Event-Frequency-Analysis-Workstation6 |
-| 03-Empire-Attack-Timeline-Reconstruction |
-| 04-Process-Lineage-PowerShell-Execution |
-| 05-PowerShell-Empire-Invoke-PsExec-Detection |
-| 06-PowerShell-ScriptBlock-Logging-Analysis |
-| 07-AMSI-Bypass-ScriptBlock-Detection |
-| 08-Malicious-Service-Installation-Updater |
-| 09-Registry-Persistence-Updater-Service |
-| 10-Persistence-And-PowerShell-Correlation |
-| 11-Suspicious-PowerShell-Network-Connection |
+## Screenshots
+
+### 1. Data Ingestion Validation
+
+![Data Ingestion](screenshots/01-Splunk-ThreatHunt-Data-Ingestion.png)
 
 ---
+
+### 2. Event Frequency Analysis
+
+![Event Frequency](screenshots/02-Event-Frequency-Analysis-Workstation6.png)
+
+---
+
+### 3. Attack Timeline Reconstruction
+
+![Timeline](screenshots/03-Empire-Attack-Timeline-Reconstruction.png)
+
+---
+
+### 4. Process Lineage Analysis
+
+![Process Lineage](screenshots/04-Process-Lineage-PowerShell-Execution.png)
+
+---
+
+### 5. Invoke-PsExec Detection
+
+![Invoke-PsExec](screenshots/05-PowerShell-Empire-Invoke-PsExec-Detection.png)
+
+---
+
+### 6. PowerShell Script Block Logging Analysis
+
+![Script Block Logging](screenshots/06-PowerShell-ScriptBlock-Logging-Analysis.png)
+
+---
+
+### 7. AMSI Bypass Detection
+
+![AMSI Bypass](screenshots/07-AMSI-Bypass-ScriptBlock-Detection.png)
+
+---
+
+### 8. Malicious Service Installation
+
+![Service Installation](screenshots/08-Malicious-Service-Installation-Updater.png)
+
+---
+
+### 9. Registry Persistence
+
+![Registry Persistence](screenshots/09-Registry-Persistence-Updater-Service.png)
+
+---
+
+### 10. Persistence Correlation
+
+![Correlation](screenshots/10-Persistence-And-PowerShell-Correlation.png)
+
+---
+
+### 11. Suspicious PowerShell Network Activity
+
+![Network Activity](screenshots/11-Suspicious-PowerShell-Network-Connection.png)
 
 ## Repository Structure
 
